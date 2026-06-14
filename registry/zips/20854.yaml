@@ -1,0 +1,92 @@
+zip: "20854"
+place: "Potomac"
+state: MD
+county: "Montgomery County"
+
+districts:
+  congressional: "MD-08"
+  state_senate: "SD-16"
+  state_house: "HD-16"
+  county_council: "District 2"
+
+sources:
+  local:
+    - { name: "Bethesda Magazine", url: "https://bethesdamagazine.com" }
+    - { name: "MoCo360", url: "https://moco360.media" }
+
+officials:
+  local:
+    - office: "Montgomery County Executive"
+      name: null
+      branch: executive
+      level: local
+      contact:
+        phone: "240-777-2500"
+        website: "https://www.montgomerycountymd.gov/exec"
+
+    - office: "Montgomery County Council — District 2"
+      name: "Kate Stewart"
+      branch: legislative
+      level: local
+      committees:
+        - "Planning, Housing & Parks"
+        - "Transportation & Environment"
+      contact:
+        phone: "240-777-7955"
+        website: "https://www.montgomerycountymd.gov/council/District2"
+
+    - office: "Potomac Community Recreation Center Board"
+      name: "Michael Chen"
+      branch: legislative
+      level: local
+      needs_verification: true
+      contact:
+        website: "https://www.montgomerycountymd.gov/rec/potomac"
+
+  state:
+    - office: "Maryland State Senator — SD-16"
+      name: "Susan Lee"
+      branch: legislative
+      level: state
+      committees:
+        - "Finance Committee"
+        - "Education, Health & Environmental Affairs"
+      contact:
+        phone: "410-841-3606"
+        website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/lee"
+
+    - office: "Maryland Delegate — HD-16"
+      name: "Marc Korman"
+      branch: legislative
+      level: state
+      contact:
+        phone: "410-841-3474"
+        website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/korman"
+
+  federal:
+    - office: "U.S. Representative — MD-08"
+      name: "Jamie Raskin"
+      branch: legislative
+      level: national
+      committees:
+        - "House Judiciary Committee"
+        - "House Administration Committee"
+      contact:
+        phone: "202-225-5341"
+        website: "https://raskin.house.gov"
+
+    - office: "U.S. Senator — Maryland"
+      name: "Angela Alsobrooks"
+      branch: legislative
+      level: national
+      contact:
+        phone: "202-224-4524"
+        website: "https://www.alsobrooks.senate.gov"
+
+    - office: "U.S. Senator — Maryland"
+      name: "Chris Van Hollen"
+      branch: legislative
+      level: national
+      contact:
+        phone: "202-224-4654"
+        website: "https://www.vanhollen.senate.gov"

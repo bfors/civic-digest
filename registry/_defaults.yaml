@@ -1,0 +1,26 @@
+categories:
+  - Public Safety
+  - Taxes & Budget
+  - Education
+  - Transportation & Infrastructure
+  - Housing
+  - Environment
+  - Health
+  - Elections & Government
+
+sources:
+  national:
+    - { name: NPR, url: "https://www.npr.org" }
+    - { name: "PBS NewsHour", url: "https://www.pbs.org/newshour" }
+    - { name: "AP News", url: "https://apnews.com" }
+
+state_sources:
+  MD:
+    - { name: "Maryland Matters", url: "https://marylandmatters.org" }
+    - { name: "The Baltimore Banner", url: "https://www.thebaltimorebanner.com" }
+
+render:
+  level_colors:
+    local: "#2f7d4f"
+    state: "#2563a8"
+    national: "#9c4a2f"
