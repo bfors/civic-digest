@@ -17,8 +17,21 @@ function escHtml(s: string): string {
     .replace(/'/g, "&#39;");
 }
 
-function chip(label: string, color: string): string {
-  return `<span style="display:inline-block;padding:2px 10px;border-radius:12px;background:${escHtml(color)};color:#fff;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">${escHtml(label)}</span>`;
+// Derive an rgba() from a #rrggbb hex so we can tint backgrounds/borders from
+// the configured level color without hardcoding extra shades.
+function hexToRgba(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function sectionHeader(label: string, color: string): string {
+  return `<div style="display:flex;align-items:center;gap:9px;margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid ${hexToRgba(color, 0.35)};">
+      <span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${escHtml(color)};box-shadow:0 0 0 3px ${hexToRgba(color, 0.18)};"></span>
+      <span style="font-size:14px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:${escHtml(color)};">${escHtml(label)}</span>
+    </div>`;
 }
 
 function categoryPill(category: string): string {
@@ -159,8 +172,8 @@ function renderLevelSection(
   const articlesHtml = articles.map(renderArticleCard).join("");
 
   return `
-    <section style="margin-bottom:32px;">
-      <div style="margin-bottom:16px;">${chip(label, color)}</div>
+    <section style="margin-bottom:24px;background:${hexToRgba(color, 0.06)};border:1px solid ${hexToRgba(color, 0.22)};border-left:6px solid ${escHtml(color)};border-radius:10px;padding:18px 18px 6px;">
+      ${sectionHeader(label, color)}
       ${officialsHtml}
       ${votesHtml}
       ${articlesHtml}
