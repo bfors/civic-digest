@@ -19,18 +19,60 @@ describe("renderDigest", () => {
     expect(html).toContain("Daily Civic Dispatch");
   });
 
-  test("verify badge appears for needs_verification official", async () => {
-    const digest = await getDigest();
+  // Build a minimal digest with synthetic officials so these rendering rules
+  // are tested directly, not coupled to whatever real data the registry holds.
+  function digestWithOfficials(officials: any[]) {
     const defaults = loadDefaults();
-    const html = renderDigest(digest, defaults.render);
+    return {
+      zip: "00000",
+      place: "Testville",
+      generated: "2026-06-19",
+      config: {
+        zip: "00000",
+        place: "Testville",
+        state: "XX",
+        categories: defaults.categories,
+        sources: { national: [] },
+        officials: { local: officials },
+      },
+      articles: [],
+    } as any;
+  }
+
+  test("needs_verification official shows Verify badge but no contact link", () => {
+    const defaults = loadDefaults();
+    const html = renderDigest(
+      digestWithOfficials([
+        {
+          office: "Advisory Board",
+          name: "Pat Doe",
+          branch: "legislative",
+          level: "local",
+          needs_verification: true,
+          contact: { website: "https://example.com/unconfirmed-link" },
+        },
+      ]),
+      defaults.render
+    );
     expect(html).toContain("Verify");
     expect(html).toContain("&#9888;");
+    // Per policy: links for unverified officials are suppressed.
+    expect(html).not.toContain("unconfirmed-link");
   });
 
-  test("Seat Unfilled appears for name:null official", async () => {
-    const digest = await getDigest();
+  test("Seat Unfilled appears for name:null official", () => {
     const defaults = loadDefaults();
-    const html = renderDigest(digest, defaults.render);
+    const html = renderDigest(
+      digestWithOfficials([
+        {
+          office: "County Executive",
+          name: null,
+          branch: "executive",
+          level: "local",
+        },
+      ]),
+      defaults.render
+    );
     expect(html).toContain("Seat Unfilled");
   });
 

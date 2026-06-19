@@ -73,18 +73,12 @@ describe("registry — schema validation", () => {
 });
 
 describe("registry — warnings", () => {
-  test("needs_verification official produces warning", () => {
+  // 20854's officials are now fully verified real people with real pages, so
+  // the digest should carry no verification or seat-unfilled warnings.
+  test("verified 20854 data produces no verification or seat-unfilled warnings", () => {
     const { warnings } = loadZipConfig("20854");
-    const verifyWarning = warnings.find((w) => w.includes("needs verification"));
-    expect(verifyWarning).toBeDefined();
-    expect(verifyWarning).toContain("Potomac Community Recreation Center Board");
-  });
-
-  test("name:null official produces seat-unfilled warning", () => {
-    const { warnings } = loadZipConfig("20854");
-    const seatWarning = warnings.find((w) => w.includes("seat unfilled"));
-    expect(seatWarning).toBeDefined();
-    expect(seatWarning).toContain("Montgomery County Executive");
+    expect(warnings.find((w) => w.includes("needs verification"))).toBeUndefined();
+    expect(warnings.find((w) => w.includes("seat unfilled"))).toBeUndefined();
   });
 });
 
@@ -110,10 +104,10 @@ describe("registry — district resolution", () => {
 
   test("ZIP officials are assembled from referenced districts, bucketed by level", () => {
     const { config } = loadZipConfig("20854");
-    // local: county exec + council district 2 + rec board
-    expect(config.officials.local?.length).toBe(3);
-    // state: SD-16 + HD-16
-    expect(config.officials.state?.length).toBe(2);
+    // local: county exec + council district 1
+    expect(config.officials.local?.length).toBe(2);
+    // state: SD-15 senator + 3 HD-15 delegates
+    expect(config.officials.state?.length).toBe(4);
     // federal: MD-08 rep + 2 US senators
     expect(config.officials.federal?.length).toBe(3);
     expect(config.officials.federal?.map((o) => o.name)).toContain("Jamie Raskin");

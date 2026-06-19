@@ -1,0 +1,16 @@
+id: md-sd-15
+level: state
+name: "Maryland State Senate — District 15"
+officials:
+  - office: "Maryland State Senator — District 15"
+    name: "Brian J. Feldman"
+    branch: legislative
+    level: state
+    district: "District 15"
+    party: "D"
+    committees:
+      - "Education, Energy, and the Environment (Chair)"
+    contact:
+      phone: "410-841-3169"
+      email: "brian.feldman@senate.maryland.gov"
+      website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/feldman"

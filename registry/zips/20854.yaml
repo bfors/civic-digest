@@ -8,10 +8,9 @@ county: "Montgomery County"
 # list multiple ids when the ZIP straddles more than one district in that layer.
 districts:
   county_executive: [moco-exec]
-  county_council: [moco-council-2]
-  local_board: [potomac-rec-board]
-  state_senate: [md-sd-16]
-  state_house: [md-hd-16]
+  county_council: [moco-council-1]
+  state_senate: [md-sd-15]
+  state_house: [md-hd-15]
   federal_house: [md-08]
   federal_senate: [md-senate]
 

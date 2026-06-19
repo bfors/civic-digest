@@ -59,7 +59,9 @@ function renderOfficialCard(official: Official): string {
       ? `<div style="font-size:12px;color:#666;margin-top:3px;">${official.committees.map((c) => escHtml(c)).join(" &middot; ")}</div>`
       : "";
 
-  const contact = renderContact(official);
+  // An unverified official is shown (with the Verify badge) but without contact
+  // links we can't stand behind — we don't publish a URL we haven't confirmed.
+  const contact = official.needs_verification ? "" : renderContact(official);
 
   return `
     <div style="background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:14px 16px;margin-bottom:10px;">

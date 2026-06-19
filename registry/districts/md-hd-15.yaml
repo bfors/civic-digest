@@ -1,0 +1,32 @@
+id: md-hd-15
+level: state
+name: "Maryland House of Delegates — District 15"
+officials:
+  - office: "Maryland Delegate — District 15"
+    name: "Linda Foley"
+    branch: legislative
+    level: state
+    district: "District 15"
+    party: "D"
+    contact:
+      website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/foley01"
+
+  - office: "Maryland Delegate — District 15"
+    name: "David Fraser-Hidalgo"
+    branch: legislative
+    level: state
+    district: "District 15"
+    party: "D"
+    committees:
+      - "Economic Matters"
+    contact:
+      website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/fraser01"
+
+  - office: "Maryland Delegate — District 15"
+    name: "Lily Qi"
+    branch: legislative
+    level: state
+    district: "District 15"
+    party: "D"
+    contact:
+      website: "https://mgaleg.maryland.gov/mgawebsite/Members/Details/qi01"

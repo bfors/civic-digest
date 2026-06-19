@@ -3,9 +3,10 @@ level: local
 name: "Montgomery County Executive"
 officials:
   - office: "Montgomery County Executive"
-    name: null
+    name: "Marc Elrich"
     branch: executive
     level: local
+    party: "D"
     contact:
       phone: "240-777-2500"
-      website: "https://www.montgomerycountymd.gov/exec"
+      website: "https://www.montgomerycountymd.gov/office-county-executive"

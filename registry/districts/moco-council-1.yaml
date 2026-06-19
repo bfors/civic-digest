@@ -1,0 +1,15 @@
+id: moco-council-1
+level: local
+name: "Montgomery County Council — District 1"
+officials:
+  - office: "Montgomery County Council — District 1"
+    name: "Andrew Friedson"
+    branch: legislative
+    level: local
+    district: "District 1"
+    party: "D"
+    committees:
+      - "Planning, Housing & Parks (Chair)"
+      - "Government Operations & Fiscal Policy"
+    contact:
+      website: "https://www.montgomerycountymd.gov/friedson/"
