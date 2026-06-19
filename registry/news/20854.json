@@ -1,0 +1,82 @@
+{
+  "zip": "20854",
+  "generated": "2026-06-19",
+  "articles": [
+    {
+      "headline": "MoCo School Board Cuts 415 Positions to Close $36M Budget Gap",
+      "summary": "The Montgomery County Board of Education adopted a $3.72 billion fiscal 2027 budget for MCPS, eliminating 415 district positions to close a $36 million spending gap amid broader county fiscal pressure.",
+      "affects_you": "Potomac-area schools face staffing reductions, and several construction projects were pushed back — design for work at Cold Spring Elementary in Potomac was delayed about three years, now slated to begin around 2031.",
+      "category": "Education",
+      "level": "local",
+      "source": "Bethesda Magazine",
+      "url": "https://bethesdamagazine.com/2026/06/04/mcps-budget-cuts-2/",
+      "author": null,
+      "published": "2026-06-04"
+    },
+    {
+      "headline": "Divided County Council Backs Progressive County Income Tax Structure",
+      "summary": "In a straw vote, a divided Montgomery County Council supported moving to a progressive (tiered) county income tax as part of its roughly $7.9 billion fiscal 2027 operating budget, which supporters said would provide tax relief for most residents.",
+      "affects_you": "Most Potomac households are projected to see modest relief, while higher-income earners would pay a higher county income tax rate under the tiered structure.",
+      "category": "Taxes & Budget",
+      "level": "local",
+      "source": "Bethesda Magazine",
+      "url": "https://bethesdamagazine.com/2026/05/08/straw-vote-divided-county-council-supports-progressive-income-tax-structure/",
+      "author": null,
+      "published": "2026-05-08"
+    },
+    {
+      "headline": "MCPS Plans to Buy 140 Diesel Buses, Stepping Back From All-Electric Fleet",
+      "summary": "Montgomery County Public Schools moved to purchase 140 diesel-powered school buses, a departure from its earlier plan to electrify the fleet, with the district saying its existing electric buses are 'not fully capable of meeting all of our transportation demands.'",
+      "affects_you": "The decision affects school bus reliability across Potomac and the county, and marks a retreat from the county's school-fleet electrification goal on cost and performance grounds.",
+      "category": "Transportation & Infrastructure",
+      "level": "local",
+      "source": "Bethesda Magazine",
+      "url": "https://bethesdamagazine.com/2026/03/03/mcps-looks-to-purchase-140-gas-powered-school-buses/",
+      "author": null,
+      "published": "2026-03-03"
+    },
+    {
+      "headline": "Moore, Legislative Leaders Sign $70.8 Billion Maryland Budget Into Law",
+      "summary": "Gov. Wes Moore and legislative leaders signed a $70.8 billion state budget, closing a projected $1.5 billion shortfall largely through spending cuts and fund shifts rather than major new broad-based taxes.",
+      "affects_you": "State funding for schools, health, and transportation that flows to Montgomery County is shaped by this budget, which leans on cuts to balance — putting pressure on services Potomac residents use.",
+      "category": "Taxes & Budget",
+      "level": "state",
+      "source": "Maryland Matters",
+      "url": "https://marylandmatters.org/2026/04/09/moore-legislative-leaders-sign-70-8-billion-budget-into-law/",
+      "author": null,
+      "published": "2026-04-09"
+    },
+    {
+      "headline": "Maryland Moves to Set Its Own Vaccine Recommendations Apart From the Feds",
+      "summary": "Maryland advanced the 'Vax Act,' authorizing the state health secretary to issue vaccine recommendations independent of federal guidance and requiring Maryland insurers to cover them, after federal officials scaled back the CDC's recommended childhood immunizations.",
+      "affects_you": "Potomac families could keep insurance coverage for vaccines — such as flu, RSV, and hepatitis A and B — that the CDC dropped from its universal recommendations, regardless of federal policy.",
+      "category": "Health",
+      "level": "state",
+      "source": "Maryland Matters",
+      "url": "https://marylandmatters.org/2026/01/08/moore-administration-wants-health-secretary-to-issue-vaccine-recommendations-apart-from-feds/",
+      "author": null,
+      "published": "2026-01-08"
+    },
+    {
+      "headline": "Federal Judge Halts RFK Jr.'s Cuts to Childhood Vaccine Recommendations",
+      "summary": "A federal judge blocked HHS Secretary Robert F. Kennedy Jr.'s rollback of federally recommended childhood vaccines — which had reduced the routine schedule from 17 to 11 — ruling the changes were 'arbitrary and capricious.'",
+      "affects_you": "Federal vaccine guidance remains in flux for Potomac parents; Maryland's separate Vax Act is designed to preserve coverage in the state regardless of how the federal case is resolved.",
+      "category": "Health",
+      "level": "national",
+      "source": "NPR",
+      "url": "https://www.npr.org/2026/03/16/nx-s1-5749530/judge-blocks-rfk-jr-vaccine-changes",
+      "author": null,
+      "published": "2026-03-16"
+    },
+    {
+      "headline": "Federal Medicaid and SNAP Cuts Set to Shift Costs to States",
+      "summary": "Analysts examined the federal budget law's cuts to Medicaid and SNAP — including a new Medicaid work requirement taking effect in 2026 and a CBO-estimated reduction of more than $700 billion in federal Medicaid spending over a decade — which shift costs onto states.",
+      "affects_you": "Maryland will face pressure to offset lost federal funding, which could affect Medicaid enrollees and SNAP recipients in Montgomery County and squeeze the state budget that supports local services.",
+      "category": "Health",
+      "level": "national",
+      "source": "PBS NewsHour",
+      "url": "https://www.pbs.org/newshour/show/exploring-the-potential-impact-of-medicaid-cuts-in-trumps-big-budget-bill",
+      "author": null
+    }
+  ]
+}

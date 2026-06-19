@@ -3,7 +3,7 @@ import { join } from "path";
 import { buildDigest } from "./src/digest.ts";
 import { availableZips } from "./src/registry.ts";
 import { renderDigest, renderIndex } from "./src/render_html.ts";
-import { MockProvider, ClaudeProvider } from "./src/news.ts";
+import { MockProvider, ClaudeProvider, SnapshotProvider } from "./src/news.ts";
 import { loadDefaults } from "./src/registry.ts";
 import type { NewsProvider } from "./src/news.ts";
 
@@ -15,10 +15,14 @@ function getProvider(args: string[]): NewsProvider {
 
   if (providerName === "claude") {
     return new ClaudeProvider();
+  } else if (providerName === "snapshot") {
+    return new SnapshotProvider();
   } else if (providerName === "mock" || providerName === undefined) {
     return new MockProvider();
   } else {
-    console.error(`Unknown provider: ${providerName}. Use "mock" or "claude".`);
+    console.error(
+      `Unknown provider: ${providerName}. Use "mock", "snapshot", or "claude".`
+    );
     process.exit(1);
   }
 }

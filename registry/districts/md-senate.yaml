@@ -1,0 +1,19 @@
+id: md-senate
+level: national
+name: "U.S. Senate — Maryland"
+officials:
+  - office: "U.S. Senator — Maryland"
+    name: "Angela Alsobrooks"
+    branch: legislative
+    level: national
+    contact:
+      phone: "202-224-4524"
+      website: "https://www.alsobrooks.senate.gov"
+
+  - office: "U.S. Senator — Maryland"
+    name: "Chris Van Hollen"
+    branch: legislative
+    level: national
+    contact:
+      phone: "202-224-4654"
+      website: "https://www.vanhollen.senate.gov"

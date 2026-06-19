@@ -1,0 +1,11 @@
+id: potomac-rec-board
+level: local
+name: "Potomac Community Recreation Center Board"
+officials:
+  - office: "Potomac Community Recreation Center Board"
+    name: "Michael Chen"
+    branch: legislative
+    level: local
+    needs_verification: true
+    contact:
+      website: "https://www.montgomerycountymd.gov/rec/potomac"

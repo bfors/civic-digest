@@ -37,17 +37,44 @@ export const OfficialSchema = z.object({
 });
 export type Official = z.infer<typeof OfficialSchema>;
 
-// Districts
-export const DistrictsSchema = z.object({}).catchall(z.string().optional());
-export type Districts = z.infer<typeof DistrictsSchema>;
+// District references on a ZIP: layer name -> list of district ids.
+// A layer normally holds one id; multiple ids mean the ZIP straddles that layer.
+export const DistrictRefsSchema = z.record(z.array(z.string()));
+export type DistrictRefs = z.infer<typeof DistrictRefsSchema>;
 
-// ZipConfig — post-merge shape
+// District — a first-class electoral unit, defined once and referenced by ZIPs.
+// Holds one or more officials (e.g. a statewide US Senate "district" holds two).
+export const DistrictSchema = z.object({
+  id: z.string(),
+  level: LevelSchema,
+  name: z.string().optional(),
+  officials: z.array(OfficialSchema),
+});
+export type District = z.infer<typeof DistrictSchema>;
+
+// ZipFile — raw shape of registry/zips/<zip>.yaml (pre-resolution).
+// Officials no longer live here; the ZIP references district files instead.
+export const ZipFileSchema = z.object({
+  zip: z.string(),
+  place: z.string(),
+  state: z.string(),
+  county: z.string().optional(),
+  districts: DistrictRefsSchema.optional(),
+  sources: z
+    .object({
+      local: z.array(SourceSchema).optional(),
+    })
+    .optional(),
+});
+export type ZipFile = z.infer<typeof ZipFileSchema>;
+
+// ZipConfig — post-resolution shape consumed by the build + renderer.
 export const ZipConfigSchema = z.object({
   zip: z.string(),
   place: z.string(),
   state: z.string(),
   county: z.string().optional(),
-  districts: DistrictsSchema.optional(),
+  districts: DistrictRefsSchema.optional(),
   categories: z.array(z.string()),
   sources: z.object({
     local: z.array(SourceSchema).optional(),
@@ -85,6 +112,16 @@ export const DigestSchema = z.object({
   articles: z.array(ArticleSchema),
 });
 export type Digest = z.infer<typeof DigestSchema>;
+
+// NewsSnapshot — committed real-news data for a ZIP (registry/news/<zip>.json).
+// Generated out-of-band (e.g. by Claude Code via web search) and read by
+// SnapshotProvider so the build needs no live API calls.
+export const NewsSnapshotSchema = z.object({
+  zip: z.string(),
+  generated: z.string(),
+  articles: z.array(ArticleSchema),
+});
+export type NewsSnapshot = z.infer<typeof NewsSnapshotSchema>;
 
 // DefaultsConfig — shape of _defaults.yaml
 export const DefaultsConfigSchema = z.object({

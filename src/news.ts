@@ -1,4 +1,7 @@
+import { readFileSync } from "fs";
+import { join } from "path";
 import type { Article, ZipConfig } from "./schema.ts";
+import { NewsSnapshotSchema } from "./schema.ts";
 
 export interface NewsProvider {
   fetch(config: ZipConfig): Promise<Article[]>;
@@ -179,5 +182,27 @@ export class ClaudeProvider implements NewsProvider {
     throw new Error(
       "ClaudeProvider is not yet implemented. Use --provider mock for Phase 1."
     );
+  }
+}
+
+const NEWS_DIR = join(import.meta.dir, "..", "registry", "news");
+
+// Reads a committed news snapshot for the ZIP (registry/news/<zip>.json).
+// Snapshots are generated out-of-band (Claude Code + web search) so the build
+// itself stays free of live API calls.
+export class SnapshotProvider implements NewsProvider {
+  async fetch(config: ZipConfig): Promise<Article[]> {
+    const file = join(NEWS_DIR, `${config.zip}.json`);
+    let raw: string;
+    try {
+      raw = readFileSync(file, "utf-8");
+    } catch {
+      throw new Error(
+        `No news snapshot for ZIP ${config.zip} (expected registry/news/${config.zip}.json). ` +
+          `Generate one, or build with --provider mock.`
+      );
+    }
+    const snapshot = NewsSnapshotSchema.parse(JSON.parse(raw));
+    return snapshot.articles;
   }
 }

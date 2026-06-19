@@ -3,8 +3,13 @@ import { join } from "path";
 import yaml from "js-yaml";
 import {
   DefaultsConfigSchema,
+  DistrictSchema,
   ZipConfigSchema,
+  ZipFileSchema,
   type DefaultsConfig,
+  type District,
+  type Level,
+  type Official,
   type ZipConfig,
 } from "./schema.ts";
 
@@ -14,6 +19,30 @@ export function loadDefaults(): DefaultsConfig {
   const raw = readFileSync(join(REGISTRY_DIR, "_defaults.yaml"), "utf-8");
   const parsed = yaml.load(raw);
   return DefaultsConfigSchema.parse(parsed);
+}
+
+export function loadDistrict(id: string): District {
+  const file = join(REGISTRY_DIR, "districts", `${id}.yaml`);
+  let raw: string;
+  try {
+    raw = readFileSync(file, "utf-8");
+  } catch {
+    throw new Error(
+      `District "${id}" not found (expected registry/districts/${id}.yaml)`
+    );
+  }
+  try {
+    return DistrictSchema.parse(yaml.load(raw));
+  } catch (err) {
+    throw new Error(
+      `District "${id}" is malformed: ${err instanceof Error ? err.message : err}`
+    );
+  }
+}
+
+// national-level officials render under the "federal" bucket
+function bucketFor(level: Level): "local" | "state" | "federal" {
+  return level === "national" ? "federal" : level;
 }
 
 export function loadZipConfig(zip: string): { config: ZipConfig; warnings: string[] } {
@@ -26,14 +55,11 @@ export function loadZipConfig(zip: string): { config: ZipConfig; warnings: strin
   }
 
   const defaults = loadDefaults();
-  const zipData = yaml.load(zipRaw) as Record<string, unknown>;
-
-  const state = zipData["state"] as string | undefined;
+  const zipData = ZipFileSchema.parse(yaml.load(zipRaw));
 
   // Merge sources: national from defaults, state from state_sources[state], local from zip
-  const stateSources = state ? (defaults.state_sources[state] ?? []) : [];
-  const localSources =
-    (zipData["sources"] as { local?: unknown[] } | undefined)?.local ?? [];
+  const stateSources = defaults.state_sources[zipData.state] ?? [];
+  const localSources = zipData.sources?.local ?? [];
 
   const mergedSources = {
     national: defaults.sources.national,
@@ -41,10 +67,29 @@ export function loadZipConfig(zip: string): { config: ZipConfig; warnings: strin
     local: localSources,
   };
 
+  // Resolve referenced district files into officials grouped by level.
+  const districtRefs = zipData.districts ?? {};
+  const officials: { local: Official[]; state: Official[]; federal: Official[] } = {
+    local: [],
+    state: [],
+    federal: [],
+  };
+  for (const ids of Object.values(districtRefs)) {
+    for (const id of ids) {
+      const district = loadDistrict(id);
+      officials[bucketFor(district.level)].push(...district.officials);
+    }
+  }
+
   const merged = {
-    ...zipData,
+    zip: zipData.zip,
+    place: zipData.place,
+    state: zipData.state,
+    county: zipData.county,
+    districts: districtRefs,
     categories: defaults.categories,
     sources: mergedSources,
+    officials,
   };
 
   const result = ZipConfigSchema.parse(merged);

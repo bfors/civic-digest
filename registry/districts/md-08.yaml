@@ -1,0 +1,15 @@
+id: md-08
+level: national
+name: "Maryland's 8th Congressional District"
+officials:
+  - office: "U.S. Representative — MD-08"
+    name: "Jamie Raskin"
+    branch: legislative
+    level: national
+    district: "MD-08"
+    committees:
+      - "House Judiciary Committee"
+      - "House Administration Committee"
+    contact:
+      phone: "202-225-5341"
+      website: "https://raskin.house.gov"

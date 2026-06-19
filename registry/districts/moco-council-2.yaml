@@ -1,0 +1,15 @@
+id: moco-council-2
+level: local
+name: "Montgomery County Council — District 2"
+officials:
+  - office: "Montgomery County Council — District 2"
+    name: "Kate Stewart"
+    branch: legislative
+    level: local
+    district: "District 2"
+    committees:
+      - "Planning, Housing & Parks"
+      - "Transportation & Environment"
+    contact:
+      phone: "240-777-7955"
+      website: "https://www.montgomerycountymd.gov/council/District2"

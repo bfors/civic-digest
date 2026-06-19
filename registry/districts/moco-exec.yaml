@@ -1,0 +1,11 @@
+id: moco-exec
+level: local
+name: "Montgomery County Executive"
+officials:
+  - office: "Montgomery County Executive"
+    name: null
+    branch: executive
+    level: local
+    contact:
+      phone: "240-777-2500"
+      website: "https://www.montgomerycountymd.gov/exec"
