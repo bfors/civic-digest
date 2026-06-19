@@ -1,5 +1,5 @@
 import { DigestSchema, type Digest } from "./schema.ts";
-import { loadZipConfig } from "./registry.ts";
+import { loadZipConfig, resolveVotesByLevel } from "./registry.ts";
 import { filterByValidCategories, type NewsProvider } from "./news.ts";
 
 export async function buildDigest(zip: string, provider: NewsProvider): Promise<Digest> {
@@ -12,6 +12,8 @@ export async function buildDigest(zip: string, provider: NewsProvider): Promise<
   const raw = await provider.fetch(config);
   const articles = filterByValidCategories(raw, config.categories);
 
+  const votes = resolveVotesByLevel(config.districts ?? {});
+
   const today = new Date().toISOString().split("T")[0] ?? new Date().toISOString();
 
   return DigestSchema.parse({
@@ -20,5 +22,6 @@ export async function buildDigest(zip: string, provider: NewsProvider): Promise<
     generated: today,
     config,
     articles,
+    votes,
   });
 }

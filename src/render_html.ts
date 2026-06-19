@@ -1,4 +1,4 @@
-import type { Digest, Official, Article } from "./schema.ts";
+import type { Digest, Official, Article, Vote } from "./schema.ts";
 
 export interface RenderConfig {
   level_colors: {
@@ -93,24 +93,76 @@ function renderArticleCard(article: Article): string {
     </div>`;
 }
 
+function renderVoteCard(vote: Vote): string {
+  const isUpcoming = vote.status === "upcoming";
+  const statusColor = isUpcoming ? "#b06a00" : "#475569";
+  const statusLabel = isUpcoming ? "Upcoming" : "Recent";
+  const statusPill = `<span style="display:inline-block;padding:1px 8px;border-radius:9px;background:${statusColor};color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">${statusLabel}</span>`;
+
+  const dateStr = vote.date ? ` &middot; ${escHtml(vote.date)}` : "";
+  const meta = `<div style="font-size:11px;color:#888;margin-top:6px;">${escHtml(vote.body)}${dateStr}</div>`;
+
+  const positionsHtml =
+    vote.positions && vote.positions.length > 0
+      ? `<div style="font-size:12px;color:#333;margin-top:6px;">${vote.positions
+          .map((p) => {
+            const v = p.vote.toLowerCase();
+            const c = v.startsWith("y") ? "#2f7d4f" : v.startsWith("n") ? "#9c2f2f" : "#666";
+            return `${escHtml(p.name)}: <strong style="color:${c};">${escHtml(p.vote)}</strong>`;
+          })
+          .join(" &nbsp;·&nbsp; ")}</div>`
+      : "";
+
+  const resultHtml = vote.result
+    ? `<div style="font-size:12px;color:#666;margin-top:4px;">${escHtml(vote.result)}</div>`
+    : "";
+
+  return `
+    <div style="background:#fff;border:1px solid #e2e6ea;border-left:3px solid ${statusColor};border-radius:6px;padding:12px 14px;margin-bottom:8px;">
+      <div style="margin-bottom:6px;">${statusPill} <span style="font-size:12px;font-weight:700;color:#334;">${escHtml(vote.bill)}</span></div>
+      <div style="font-size:14px;font-weight:600;color:#1a1a1a;">${escHtml(vote.title)}</div>
+      <p style="font-size:13px;color:#444;margin:4px 0 0;">${escHtml(vote.summary)}</p>
+      ${positionsHtml}
+      ${resultHtml}
+      ${meta}
+      <div style="font-size:12px;margin-top:6px;"><a href="${escHtml(vote.source_url)}" style="color:#2563a8;">Official record &rarr;</a></div>
+    </div>`;
+}
+
+function renderVotesBlock(votes: Vote[]): string {
+  if (votes.length === 0) return "";
+  // upcoming first, then recent
+  const ordered = [...votes].sort((a, b) =>
+    a.status === b.status ? 0 : a.status === "upcoming" ? -1 : 1
+  );
+  return `
+    <div style="margin:4px 0 16px;">
+      <div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Votes &amp; Actions</div>
+      ${ordered.map(renderVoteCard).join("")}
+    </div>`;
+}
+
 function renderLevelSection(
   label: string,
   color: string,
   officials: Official[],
-  articles: Article[]
+  articles: Article[],
+  votes: Vote[]
 ): string {
-  if (officials.length === 0 && articles.length === 0) return "";
+  if (officials.length === 0 && articles.length === 0 && votes.length === 0) return "";
 
   const officialsHtml = officials.length > 0
     ? `<div style="margin-bottom:16px;">${officials.map(renderOfficialCard).join("")}</div>`
     : "";
 
+  const votesHtml = renderVotesBlock(votes);
   const articlesHtml = articles.map(renderArticleCard).join("");
 
   return `
     <section style="margin-bottom:32px;">
       <div style="margin-bottom:16px;">${chip(label, color)}</div>
       ${officialsHtml}
+      ${votesHtml}
       ${articlesHtml}
     </section>`;
 }
@@ -118,6 +170,7 @@ function renderLevelSection(
 export function renderDigest(digest: Digest, renderConfig: RenderConfig): string {
   const { zip, place, generated, config, articles } = digest;
   const colors = renderConfig.level_colors;
+  const votes = digest.votes ?? { local: [], state: [], federal: [] };
 
   const localOfficials = config.officials.local ?? [];
   const stateOfficials = config.officials.state ?? [];
@@ -128,9 +181,9 @@ export function renderDigest(digest: Digest, renderConfig: RenderConfig): string
   const nationalArticles = articles.filter((a) => a.level === "national");
 
   const sections = [
-    renderLevelSection("Local", colors.local, localOfficials, localArticles),
-    renderLevelSection("State", colors.state, stateOfficials, stateArticles),
-    renderLevelSection("National", colors.national, federalOfficials, nationalArticles),
+    renderLevelSection("Local", colors.local, localOfficials, localArticles, votes.local),
+    renderLevelSection("State", colors.state, stateOfficials, stateArticles, votes.state),
+    renderLevelSection("National", colors.national, federalOfficials, nationalArticles, votes.federal),
   ].join("");
 
   const dateFormatted = new Date(generated + "T12:00:00Z").toLocaleDateString("en-US", {

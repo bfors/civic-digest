@@ -1,0 +1,34 @@
+{
+  "district": "md-senate",
+  "generated": "2026-06-19",
+  "votes": [
+    {
+      "bill": "H.R. 6644",
+      "title": "Housing supply bill — procedural vote to advance",
+      "summary": "Cloture vote to move forward legislation aimed at increasing the national housing supply.",
+      "body": "U.S. Senate",
+      "status": "recent",
+      "date": "2026-06-18",
+      "result": "Cloture agreed 84–8",
+      "positions": [
+        { "name": "Van Hollen", "vote": "Yea" },
+        { "name": "Alsobrooks", "vote": "Not Voting" }
+      ],
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00180.htm"
+    },
+    {
+      "bill": "PN851-7",
+      "title": "Cloture — Justin D. Smith, U.S. Circuit Judge (8th Circuit)",
+      "summary": "Procedural vote on advancing the nomination of Justin D. Smith to the U.S. Court of Appeals for the Eighth Circuit.",
+      "body": "U.S. Senate",
+      "status": "recent",
+      "date": "2026-06-11",
+      "result": "Cloture agreed 47–43",
+      "positions": [
+        { "name": "Alsobrooks", "vote": "Nay" },
+        { "name": "Van Hollen", "vote": "Nay" }
+      ],
+      "source_url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00171.htm"
+    }
+  ]
+}

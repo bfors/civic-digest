@@ -1,5 +1,11 @@
 import { describe, test, expect } from "bun:test";
-import { loadZipConfig, loadDistrict, availableZips } from "../src/registry.ts";
+import {
+  loadZipConfig,
+  loadDistrict,
+  loadVotes,
+  resolveVotesByLevel,
+  availableZips,
+} from "../src/registry.ts";
 import { ZipConfigSchema } from "../src/schema.ts";
 
 describe("registry — 20854 source merging", () => {
@@ -111,6 +117,20 @@ describe("registry — district resolution", () => {
     // federal: MD-08 rep + 2 US senators
     expect(config.officials.federal?.length).toBe(3);
     expect(config.officials.federal?.map((o) => o.name)).toContain("Jamie Raskin");
+  });
+
+  test("votes resolve from per-district snapshots, bucketed by level", () => {
+    expect(loadVotes("md-08").length).toBe(2);
+    expect(loadVotes("does-not-exist")).toEqual([]); // votes are optional
+    const { config } = loadZipConfig("20854");
+    const votes = resolveVotesByLevel(config.districts ?? {});
+    expect(votes.federal.length).toBeGreaterThanOrEqual(4); // Raskin (2) + Senate (2)
+    expect(votes.local.length).toBeGreaterThanOrEqual(3); // council upcoming bills
+    expect(votes.state.length).toBeGreaterThanOrEqual(1); // Vax Act
+    // every vote carries a source link
+    for (const v of [...votes.federal, ...votes.local, ...votes.state]) {
+      expect(v.source_url).toMatch(/^https?:\/\//);
+    }
   });
 });
 

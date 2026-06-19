@@ -103,6 +103,33 @@ export const ArticleSchema = z.object({
 });
 export type Article = z.infer<typeof ArticleSchema>;
 
+// Vote — a recent or upcoming legislative vote/action by an official or body.
+// Each must link to the official record (source_url) so a reader can verify.
+export const VoteSchema = z.object({
+  bill: z.string(),
+  title: z.string(),
+  summary: z.string(),
+  body: z.string(),
+  status: z.enum(["recent", "upcoming"]),
+  date: z.string().optional(),
+  result: z.string().optional(),
+  // Member position(s). Omit when the official source doesn't record a
+  // per-member position we can verify — we never invent a Yea/Nay.
+  positions: z.array(z.object({ name: z.string(), vote: z.string() })).optional(),
+  source_url: z.string().url(),
+});
+export type Vote = z.infer<typeof VoteSchema>;
+
+// VotesSnapshot — committed votes for one district (registry/votes/<district>.json),
+// generated out-of-band from official sources. Keyed by district so it dedups
+// across ZIPs, exactly like the district/officials data.
+export const VotesSnapshotSchema = z.object({
+  district: z.string(),
+  generated: z.string(),
+  votes: z.array(VoteSchema),
+});
+export type VotesSnapshot = z.infer<typeof VotesSnapshotSchema>;
+
 // Digest
 export const DigestSchema = z.object({
   zip: z.string(),
@@ -110,6 +137,11 @@ export const DigestSchema = z.object({
   generated: z.string(),
   config: ZipConfigSchema,
   articles: z.array(ArticleSchema),
+  votes: z.object({
+    local: z.array(VoteSchema),
+    state: z.array(VoteSchema),
+    federal: z.array(VoteSchema),
+  }),
 });
 export type Digest = z.infer<typeof DigestSchema>;
 

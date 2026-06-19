@@ -1,0 +1,15 @@
+{
+  "district": "md-sd-15",
+  "generated": "2026-06-19",
+  "votes": [
+    {
+      "bill": "SB 385",
+      "title": "The Vax Act",
+      "summary": "Directs the Maryland Secretary of Health to issue evidence-based immunization recommendations and requires state-regulated insurers to cover them. Enacted in the 2026 session; the General Assembly is now between sessions until January 2027.",
+      "body": "Maryland General Assembly",
+      "status": "recent",
+      "result": "Passed both chambers; enacted (2026 session)",
+      "source_url": "https://mgaleg.maryland.gov/mgawebsite/Legislation/Details/SB0385?ys=2026rs"
+    }
+  ]
+}

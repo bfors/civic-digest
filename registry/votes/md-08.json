@@ -1,0 +1,28 @@
+{
+  "district": "md-08",
+  "generated": "2026-06-19",
+  "votes": [
+    {
+      "bill": "H.Con.Res. 86",
+      "title": "War Powers — Remove U.S. forces from hostilities with Iran",
+      "summary": "Directs the President, under the War Powers Resolution, to remove U.S. Armed Forces from unauthorized hostilities with Iran.",
+      "body": "U.S. House",
+      "status": "recent",
+      "date": "2026-06-03",
+      "result": "Passed 215–208",
+      "positions": [{ "name": "Raskin", "vote": "Yea" }],
+      "source_url": "https://clerk.house.gov/Votes/2026199"
+    },
+    {
+      "bill": "H.R. 5408",
+      "title": "Faster Labor Contracts Act",
+      "summary": "Sets faster timelines for first-contract bargaining after a union is certified, to speed up initial labor contracts.",
+      "body": "U.S. House",
+      "status": "recent",
+      "date": "2026-06-09",
+      "result": "Passed 230–193",
+      "positions": [{ "name": "Raskin", "vote": "Yea" }],
+      "source_url": "https://clerk.house.gov/Votes/2026216"
+    }
+  ]
+}

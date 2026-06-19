@@ -4,12 +4,15 @@ import yaml from "js-yaml";
 import {
   DefaultsConfigSchema,
   DistrictSchema,
+  VotesSnapshotSchema,
   ZipConfigSchema,
   ZipFileSchema,
   type DefaultsConfig,
   type District,
+  type DistrictRefs,
   type Level,
   type Official,
+  type Vote,
   type ZipConfig,
 } from "./schema.ts";
 
@@ -43,6 +46,36 @@ export function loadDistrict(id: string): District {
 // national-level officials render under the "federal" bucket
 function bucketFor(level: Level): "local" | "state" | "federal" {
   return level === "national" ? "federal" : level;
+}
+
+const VOTES_DIR = join(import.meta.dir, "..", "registry", "votes");
+
+// Load a district's committed votes snapshot, if one exists (optional).
+export function loadVotes(districtId: string): Vote[] {
+  const file = join(VOTES_DIR, `${districtId}.json`);
+  let raw: string;
+  try {
+    raw = readFileSync(file, "utf-8");
+  } catch {
+    return []; // votes are optional per district
+  }
+  return VotesSnapshotSchema.parse(JSON.parse(raw)).votes;
+}
+
+// Resolve all referenced districts' votes, bucketed by level for rendering.
+export function resolveVotesByLevel(districtRefs: DistrictRefs): {
+  local: Vote[];
+  state: Vote[];
+  federal: Vote[];
+} {
+  const votes = { local: [] as Vote[], state: [] as Vote[], federal: [] as Vote[] };
+  for (const ids of Object.values(districtRefs)) {
+    for (const id of ids) {
+      const district = loadDistrict(id);
+      votes[bucketFor(district.level)].push(...loadVotes(id));
+    }
+  }
+  return votes;
 }
 
 export function loadZipConfig(zip: string): { config: ZipConfig; warnings: string[] } {

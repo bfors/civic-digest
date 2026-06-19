@@ -1,0 +1,36 @@
+{
+  "district": "moco-council-1",
+  "generated": "2026-06-19",
+  "votes": [
+    {
+      "bill": "Bill 27-26",
+      "title": "Unlawful Racing and Street Takeovers — Prohibited",
+      "summary": "Would prohibit participating in unlawful street racing and vehicle 'takeovers' on county roads and establish penalties.",
+      "body": "Montgomery County Council",
+      "status": "upcoming",
+      "date": "2026-07-14",
+      "result": "Introduced June 16; public hearing July 14",
+      "source_url": "https://www.montgomerycountymd.gov/news/montgomery-county-council-meets-june-16-introduce-five-bills-conduct-12-public-hearings-commemorate-pride-month"
+    },
+    {
+      "bill": "Expedited Bill 29-26",
+      "title": "Community Trust in County Employees Act",
+      "summary": "Would restrict the County from hiring people employed after 2025 by the federal government to enforce immigration laws.",
+      "body": "Montgomery County Council",
+      "status": "upcoming",
+      "date": "2026-07-14",
+      "result": "Introduced June 16; public hearing July 14",
+      "source_url": "https://www.montgomerycountymd.gov/news/montgomery-county-council-meets-june-16-introduce-five-bills-conduct-12-public-hearings-commemorate-pride-month"
+    },
+    {
+      "bill": "Expedited Bill 30-26",
+      "title": "Bond Authorization — Stormwater Management",
+      "summary": "Would authorize up to $125 million in bonds for stormwater management projects, backed by the county's Water Quality Protection Charge.",
+      "body": "Montgomery County Council",
+      "status": "upcoming",
+      "date": "2026-07-21",
+      "result": "Introduced June 16; public hearing July 21",
+      "source_url": "https://www.montgomerycountymd.gov/news/montgomery-county-council-meets-june-16-introduce-five-bills-conduct-12-public-hearings-commemorate-pride-month"
+    }
+  ]
+}
