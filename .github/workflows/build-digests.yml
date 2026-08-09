@@ -20,7 +20,8 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
-      - run: bun run build.ts --all --provider snapshot
+      # civic.db is committed, so checkout supplies it — no seed step needed.
+      - run: bun run packages/generator/build.ts --all --provider snapshot
 
       - uses: peaceiris/actions-gh-pages@v4
         with:

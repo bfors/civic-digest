@@ -1,4 +1,4 @@
-import { DigestSchema, type Digest } from "./schema.ts";
+import { DigestSchema, type Digest } from "@civic/shared/schema";
 import { loadZipConfig, resolveVotesByLevel } from "./registry.ts";
 import { filterByValidCategories, type NewsProvider } from "./news.ts";
 

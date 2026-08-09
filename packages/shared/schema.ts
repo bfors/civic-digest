@@ -4,7 +4,17 @@ import { z } from "zod";
 export const LevelSchema = z.enum(["local", "state", "national"]);
 export type Level = z.infer<typeof LevelSchema>;
 
-export const BranchSchema = z.enum(["executive", "legislative"]);
+// Extended beyond executive|legislative so school/park boards and elected
+// judges are modeled honestly. `branch` is validation metadata only (not used
+// by any render/grouping code), so adding values is HTML-neutral. The finer
+// office distinction (school_board vs park_board, …) rides in OfficialRow's
+// office_type.
+export const BranchSchema = z.enum([
+  "executive",
+  "legislative",
+  "board",
+  "judicial",
+]);
 export type Branch = z.infer<typeof BranchSchema>;
 
 // Source
@@ -171,3 +181,97 @@ export const DefaultsConfigSchema = z.object({
   }),
 });
 export type DefaultsConfig = z.infer<typeof DefaultsConfigSchema>;
+
+// ---------------------------------------------------------------------------
+// DB-row schemas — the shapes stored in / read from civic.db. These are
+// distinct from the render types above: they carry row identity, ordering, and
+// research/verification provenance. The generator projects rows back down to
+// the render types (OfficialRow -> Official, SourceRow -> Source) before
+// assembling a ZipConfig, so the rendered HTML is unaffected by these columns.
+// ---------------------------------------------------------------------------
+
+// Classifies an office so we can surface high-local-impact seats (school/park
+// boards, sheriff, council, …) even when `branch` is coarse.
+export const OfficeTypeSchema = z.enum([
+  "executive",
+  "council",
+  "legislature_upper",
+  "legislature_lower",
+  "school_board",
+  "park_board",
+  "board",
+  "judicial",
+  "law_enforcement",
+  "other",
+]);
+export type OfficeType = z.infer<typeof OfficeTypeSchema>;
+
+// Where a data source applies. Drives which association column is populated.
+export const SourceTypeSchema = z.enum([
+  "news_outlet",
+  "official_legislative_record",
+  "official_website",
+  "government_portal",
+  "other",
+]);
+export type SourceType = z.infer<typeof SourceTypeSchema>;
+
+export const SourceScopeSchema = z.enum([
+  "national",
+  "state",
+  "local",
+  "district",
+  "official",
+]);
+export type SourceScope = z.infer<typeof SourceScopeSchema>;
+
+// Research/verification lifecycle. The generator reads only `verified` rows.
+export const VerificationStatusSchema = z.enum([
+  "proposed",
+  "verified",
+  "rejected",
+]);
+export type VerificationStatus = z.infer<typeof VerificationStatusSchema>;
+
+export const LinkCheckStatusSchema = z.enum([
+  "ok",
+  "broken",
+  "redirect",
+  "unchecked",
+]);
+export type LinkCheckStatus = z.infer<typeof LinkCheckStatusSchema>;
+
+// Provenance + lifecycle carried by every researched row.
+export const VerificationSchema = z.object({
+  status: VerificationStatusSchema,
+  confidence: z.number().min(0).max(1).nullable(),
+  source_url: z.string().url().nullable(),
+  verified_at: z.string().nullable(),
+  verified_by: z.string().nullable(),
+  last_checked: z.string().nullable(),
+  last_check_status: LinkCheckStatusSchema,
+});
+export type Verification = z.infer<typeof VerificationSchema>;
+
+// A row in the `official` table (render Official + identity + research cols).
+export const OfficialRowSchema = OfficialSchema.extend({
+  id: z.number().int(),
+  district_id: z.string(),
+  ordinal: z.number().int(),
+  office_type: OfficeTypeSchema.nullable(),
+  importance: z.number().int().min(1).max(5),
+}).merge(VerificationSchema);
+export type OfficialRow = z.infer<typeof OfficialRowSchema>;
+
+// A row in the `source` table (render Source + type/scope + research cols).
+export const SourceRowSchema = SourceSchema.extend({
+  id: z.number().int(),
+  type: SourceTypeSchema,
+  scope: SourceScopeSchema,
+  state: z.string().nullable(),
+  zip: z.string().nullable(),
+  district_id: z.string().nullable(),
+  official_id: z.number().int().nullable(),
+  ordinal: z.number().int(),
+}).merge(VerificationSchema);
+export type SourceRow = z.infer<typeof SourceRowSchema>;

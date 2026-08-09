@@ -1,4 +1,4 @@
-import type { Digest, Official, Article, Vote } from "./schema.ts";
+import type { Digest, Official, Article, Vote } from "@civic/shared/schema";
 
 export interface RenderConfig {
   level_colors: {

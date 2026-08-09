@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import type { Article, ZipConfig } from "./schema.ts";
-import { NewsSnapshotSchema } from "./schema.ts";
+import type { Article, ZipConfig } from "@civic/shared/schema";
+import { NewsSnapshotSchema } from "@civic/shared/schema";
 
 export interface NewsProvider {
   fetch(config: ZipConfig): Promise<Article[]>;

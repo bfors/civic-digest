@@ -6,7 +6,7 @@ import {
   resolveVotesByLevel,
   availableZips,
 } from "../src/registry.ts";
-import { ZipConfigSchema } from "../src/schema.ts";
+import { ZipConfigSchema } from "@civic/shared/schema";
 
 describe("registry — 20854 source merging", () => {
   test("merges national sources from defaults", () => {
