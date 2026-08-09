@@ -1,0 +1,13 @@
+{
+  "name": "@civic/shared",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./schema": "./schema.ts",
+    "./db": "./db.ts",
+    "./defaults": "./defaults.ts"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}

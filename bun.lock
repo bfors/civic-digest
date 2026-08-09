@@ -4,8 +4,23 @@
   "workspaces": {
     "": {
       "name": "civic-digest",
+      "devDependencies": {
+        "@types/js-yaml": "^4.0.9",
+      },
+    },
+    "packages/generator": {
+      "name": "@civic/generator",
+      "version": "0.1.0",
       "dependencies": {
         "@anthropic-ai/sdk": "^0.56.0",
+        "@civic/shared": "workspace:*",
+      },
+    },
+    "packages/registry-tool": {
+      "name": "@civic/registry-tool",
+      "version": "0.1.0",
+      "dependencies": {
+        "@civic/shared": "workspace:*",
         "js-yaml": "^4.1.0",
         "zod": "^3.23.8",
       },
@@ -13,9 +28,22 @@
         "@types/js-yaml": "^4.0.9",
       },
     },
+    "packages/shared": {
+      "name": "@civic/shared",
+      "version": "0.1.0",
+      "dependencies": {
+        "zod": "^3.23.8",
+      },
+    },
   },
   "packages": {
     "@anthropic-ai/sdk": ["@anthropic-ai/sdk@0.56.0", "", { "bin": { "anthropic-ai-sdk": "bin/cli" } }, "sha512-SLCB8M8+VMg1cpCucnA1XWHGWqVSZtIWzmOdDOEu3eTFZMB+A0sGZ1ESO5MHDnqrNTXz3safMrWx9x4rMZSOqA=="],
+
+    "@civic/generator": ["@civic/generator@workspace:packages/generator"],
+
+    "@civic/registry-tool": ["@civic/registry-tool@workspace:packages/registry-tool"],
+
+    "@civic/shared": ["@civic/shared@workspace:packages/shared"],
 
     "@types/js-yaml": ["@types/js-yaml@4.0.9", "", {}, "sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg=="],
 

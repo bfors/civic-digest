@@ -1,0 +1,9 @@
+{
+  "name": "@civic/generator",
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": {
+    "@civic/shared": "workspace:*",
+    "@anthropic-ai/sdk": "^0.56.0"
+  }
+}

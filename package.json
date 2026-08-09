@@ -1,16 +1,15 @@
 {
   "name": "civic-digest",
   "version": "0.1.0",
+  "private": true,
   "type": "module",
+  "workspaces": ["packages/*"],
   "scripts": {
-    "build": "bun run build.ts",
+    "build": "bun run packages/generator/build.ts",
+    "list": "bun run packages/generator/build.ts --list",
     "test": "bun test",
-    "list": "bun run build.ts --list"
-  },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.56.0",
-    "js-yaml": "^4.1.0",
-    "zod": "^3.23.8"
+    "seed": "bun run packages/registry-tool/migrate/seed.ts",
+    "tool": "bun run packages/registry-tool/cli.ts"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9"
