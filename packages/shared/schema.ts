@@ -58,6 +58,10 @@ export const DistrictSchema = z.object({
   id: z.string(),
   level: LevelSchema,
   name: z.string().optional(),
+  // US Census GEOID for address->district resolution (see geo.ts). Optional;
+  // NULL for districts with no Census layer (e.g. statewide US Senate) or not
+  // yet researched.
+  census_geoid: z.string().optional(),
   officials: z.array(OfficialSchema),
 });
 export type District = z.infer<typeof DistrictSchema>;

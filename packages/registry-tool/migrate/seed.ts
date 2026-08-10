@@ -57,7 +57,7 @@ export function seedDatabase(dbPath: string = DB_PATH) {
   db.exec(readFileSync(join(MIGRATE_DIR, "schema.sql"), "utf-8"));
 
   const insertDistrict = db.query(
-    `INSERT INTO district (id, level, name) VALUES (?, ?, ?)`
+    `INSERT INTO district (id, level, name, census_geoid) VALUES (?, ?, ?, ?)`
   );
   const insertOfficial = db.query(
     `INSERT INTO official
@@ -143,7 +143,7 @@ export function seedDatabase(dbPath: string = DB_PATH) {
       const d = DistrictSchema.parse(
         yaml.load(readFileSync(join(SEED_DATA, "districts", file), "utf-8"))
       );
-      insertDistrict.run(d.id, d.level, d.name ?? null);
+      insertDistrict.run(d.id, d.level, d.name ?? null, d.census_geoid ?? null);
       d.officials.forEach((o, i) => {
         const c = contactCols(o);
         const officeType = inferOfficeType(o.office, o.branch, o.level);

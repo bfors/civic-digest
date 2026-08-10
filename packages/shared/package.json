@@ -5,7 +5,8 @@
   "exports": {
     "./schema": "./schema.ts",
     "./db": "./db.ts",
-    "./defaults": "./defaults.ts"
+    "./defaults": "./defaults.ts",
+    "./geo": "./geo.ts"
   },
   "dependencies": {
     "zod": "^3.23.8"

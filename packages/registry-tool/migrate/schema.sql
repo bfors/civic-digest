@@ -22,9 +22,16 @@ CREATE TABLE IF NOT EXISTS zip (
 -- A first-class electoral unit (old registry/districts/<id>.yaml header).
 -- Officials live in `official`, not embedded here.
 CREATE TABLE IF NOT EXISTS district (
-  id    TEXT PRIMARY KEY,
-  level TEXT NOT NULL CHECK (level IN ('local','state','national')),
-  name  TEXT
+  id           TEXT PRIMARY KEY,
+  level        TEXT NOT NULL CHECK (level IN ('local','state','national')),
+  name         TEXT,
+  -- US Census GEOID, the join key for address->district resolution (geo.ts).
+  -- NULL until researched. Congressional District = state FIPS + district code
+  -- (MD-08 = '2408'); State Legislative Upper/Lower = state FIPS + 3-char
+  -- legislative code (MD Senate 15 = '24015'; MD subdistrict 15A = '2415A').
+  -- Modeled 1:1 with a district, so Maryland's lettered lower subdistricts each
+  -- become their own district row rather than sharing one.
+  census_geoid TEXT UNIQUE
 );
 
 -- ZIP <-> district many-to-many, grouped by a free-form "layer"

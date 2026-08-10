@@ -1,6 +1,7 @@
 id: md-08
 level: national
 name: "Maryland's 8th Congressional District"
+census_geoid: "2408"  # Congressional District: MD FIPS (24) + district (08)
 officials:
   - office: "U.S. Representative — MD-08"
     name: "Jamie Raskin"

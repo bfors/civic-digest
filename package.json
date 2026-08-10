@@ -7,6 +7,7 @@
   "scripts": {
     "build": "bun run packages/generator/build.ts",
     "list": "bun run packages/generator/build.ts --list",
+    "lookup": "bun run packages/registry-tool/lookup.ts",
     "test": "bun test",
     "seed": "bun run packages/registry-tool/migrate/seed.ts",
     "tool": "bun run packages/registry-tool/cli.ts"

@@ -1,6 +1,7 @@
 id: md-sd-15
 level: state
 name: "Maryland State Senate — District 15"
+census_geoid: "24015"  # State Leg. Upper (SLDU): MD FIPS (24) + code (015)
 officials:
   - office: "Maryland State Senator — District 15"
     name: "Brian J. Feldman"
